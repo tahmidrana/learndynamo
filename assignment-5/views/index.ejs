@@ -1,0 +1,109 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  New
+</button>
+
+<table class="table table-bordered mt-2">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(function(item, index) { %>
+    <tr>
+      <td><%= index+1 %></td>
+      <td><%= item.title.S %></td>
+      <td><%= item.qty.S %></td>
+      <td>
+        <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#updateModal" onclick="getProductDetail('<%= item.id.S %>')">Delete</a> 
+        <a href="/products/<%= item.id.S %>" class="btn btn-primary btn-sm">View</a>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+<!-- <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/products" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="qty">Quantity</label>
+            <input type="number" name="qty" id="qty" class="form-control" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="descr">Description</label>
+            <textarea name="descr" id="descr" rows="2" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/products/update" method="POST">
+        <div class="modal-body">
+          <input type="hidden" name="productId" id="productId">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="ptitle" id="ptitle" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="qty">Quantity</label>
+            <input type="number" name="pqty" id="pqty" class="form-control" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="pdescr">Description</label>
+            <textarea name="pdescr" id="pdescr" rows="2" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="" onclick="return confirm_delete()" id="del_btn" class="btn btn-danger">Delete</a>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
