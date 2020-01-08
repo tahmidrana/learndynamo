@@ -1,0 +1,14 @@
+1st SQL Query:
+select concat(Name, ' (',SUBSTRING(Occupation, 1, 1),')') as name from friends;
+
+
+2nd SQL Query:
+select 
+concat('We have ', 
+       count(a.Occupation), ' ',
+       a.Occupation, 
+       case when count(a.Occupation)>1 then 's' else '' end,
+       ' in our friend circle.') as friends_occu
+from friends a
+group by a.Occupation
+order by count(a.Occupation) desc;
